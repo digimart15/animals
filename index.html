@@ -1,528 +1,988 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Safari Animal Adventure</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Guess The Animal Adventure</title>
+
 
 <style>
 
-/* ================================
-   GENERAL
-================================ */
+/* =====================================================
+   BASIC PAGE
+===================================================== */
 
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
     margin: 0;
-    min-height: 100vh;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    background: #f7efd8;
-    color: #3e321d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* ================================
-   GAME CONTAINER
-================================ */
-
-.game-container {
+    padding: 0;
     width: 100%;
-    max-width: 900px;
-    min-height: 100vh;
-    padding: 35px 20px;
-    text-align: center;
+    min-height: 100%;
+}
+
+body {
+
+    background: #e9dfc7;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
     display: flex;
-    flex-direction: column;
+
     justify-content: center;
-    align-items: center;
+
+    align-items: flex-start;
+
 }
 
-/* ================================
-   TITLE
-================================ */
 
-h1 {
-    font-size: 42px;
-    margin: 0 0 8px;
-}
+/* =====================================================
+   GAME AREA
+===================================================== */
 
-.subtitle {
-    font-size: 18px;
-    margin-bottom: 15px;
-}
+#game {
 
-.question-number {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-/* ================================
-   QUESTION
-================================ */
-
-.question {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 10px 0 20px;
-}
-
-/* ================================
-   ANIMAL SILHOUETTE
-================================ */
-
-.animal-image {
-    width: 320px;
-    height: 320px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 20px;
-}
-
-/* ================================
-   ANSWER BUTTONS
-================================ */
-
-.answers {
     width: 100%;
+
+    min-height: 100vh;
+
     display: flex;
+
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+
+    align-items: center;
+
+    padding: 20px;
+
 }
 
-.answer-button {
-    min-width: 230px;
-    padding: 18px 25px;
-    border: none;
-    border-radius: 18px;
-    background: #d89b4a;
-    color: white;
-    font-family: inherit;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 6px 0 #a96f2d;
-    transition: all 0.15s ease;
-}
 
-.answer-button:hover {
-    transform: translateY(-3px);
-}
+/* =====================================================
+   A4 PAGE
 
-.answer-button:active {
-    transform: translateY(3px);
-    box-shadow: 0 2px 0 #a96f2d;
-}
+   A4 PORTRAIT RATIO:
+   210 : 297
 
-/* ================================
-   PROGRESS BAR
-================================ */
+   The page automatically scales to the screen.
+===================================================== */
 
-.progress-container {
-    width: 80%;
-    max-width: 600px;
-    height: 15px;
-    background: #ded3b8;
-    border-radius: 20px;
-    margin: 25px auto 8px;
+.a4-page {
+
+    position: relative;
+
+    width: min(90vw, 794px);
+
+    aspect-ratio: 210 / 297;
+
+    background: white;
+
     overflow: hidden;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.20);
+
 }
 
-.progress-bar {
+
+/* =====================================================
+   PNG IMAGE
+
+   The entire Canva page is displayed.
+===================================================== */
+
+.a4-page img {
+
+    width: 100%;
+
     height: 100%;
-    width: 0%;
-    background: #789b57;
-    border-radius: 20px;
-    transition: width 0.4s ease;
-}
 
-.progress-text {
-    font-size: 15px;
-    font-weight: bold;
-}
-
-/* ================================
-   REVEAL PAGE
-================================ */
-
-.reveal-title {
-    font-size: 42px;
-    margin-bottom: 8px;
-}
-
-.reveal-text {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.revealed-animal {
-    width: 360px;
-    height: 360px;
-    object-fit: contain;
     display: block;
-    margin: 0 auto 20px;
+
+    object-fit: contain;
+
 }
 
-/* ================================
-   GENERAL BUTTONS
-================================ */
 
-.continue-button,
-.back-button {
-    border: none;
-    border-radius: 18px;
-    padding: 16px 35px;
-    font-family: inherit;
-    font-size: 21px;
+/* =====================================================
+   TITLE PAGE
+===================================================== */
+
+.title-page {
+
+    width: min(90vw, 794px);
+
+    aspect-ratio: 210 / 297;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffaf0,
+            #e9dfc7
+        );
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.20);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+    position: relative;
+
+    overflow: hidden;
+
+}
+
+
+.title-page::before {
+
+    content: "🌿";
+
+    position: absolute;
+
+    top: 5%;
+
+    left: 8%;
+
+    font-size: clamp(45px, 8vw, 80px);
+
+    opacity: 0.8;
+
+}
+
+
+.title-page::after {
+
+    content: "🌴";
+
+    position: absolute;
+
+    right: 8%;
+
+    bottom: 5%;
+
+    font-size: clamp(45px, 8vw, 80px);
+
+    opacity: 0.8;
+
+}
+
+
+.title-emoji {
+
+    font-size: clamp(55px, 11vw, 110px);
+
+    margin-bottom: 25px;
+
+}
+
+
+.title-heading {
+
+    color: #6c8f4e;
+
+    font-size: clamp(34px, 6vw, 62px);
+
+    line-height: 1.15;
+
     font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    transition: all 0.15s ease;
-}
 
-.continue-button {
-    background: #719752;
-    color: white;
-    box-shadow: 0 5px 0 #4e7036;
-}
-
-.back-button {
-    background: #d89b4a;
-    color: white;
-    box-shadow: 0 5px 0 #a96f2d;
-}
-
-.continue-button:hover,
-.back-button:hover {
-    transform: translateY(-3px);
-}
-
-.continue-button:active,
-.back-button:active {
-    transform: translateY(3px);
-}
-
-/* ================================
-   ENCOURAGEMENT PAGE
-================================ */
-
-.encouragement-emoji {
-    font-size: 75px;
-    margin-bottom: 10px;
-}
-
-.encouragement {
-    font-size: 42px;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.encouragement-text {
-    max-width: 650px;
-    font-size: 25px;
-    line-height: 1.5;
-}
-
-/* ================================
-   FINISH PAGE
-================================ */
-
-.finish-animals {
-    font-size: 55px;
     margin-bottom: 20px;
+
 }
+
+
+.title-subtitle {
+
+    color: #8b633d;
+
+    font-size: clamp(20px, 3.5vw, 32px);
+
+    line-height: 1.4;
+
+    max-width: 600px;
+
+}
+
+
+.start-button {
+
+    margin-top: 40px;
+
+    padding: 17px 40px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #d69a45;
+
+    color: white;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 0 #a96d2c;
+
+}
+
+
+.start-button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+.start-button:active {
+
+    transform: translateY(3px);
+
+    box-shadow: 0 2px 0 #a96d2c;
+
+}
+
+
+/* =====================================================
+   CLICKABLE ANSWER AREAS
+
+   These are invisible buttons placed over
+   the answer choices in your Canva design.
+===================================================== */
+
+.answer-area {
+
+    position: absolute;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    padding: 0;
+
+}
+
+
+/* Optional visual feedback when hovering */
+
+.answer-area:hover {
+
+    background: rgba(255,255,255,0.08);
+
+}
+
+
+/* =====================================================
+   ENCOURAGEMENT PAGE
+===================================================== */
+
+.message-page {
+
+    width: min(90vw, 794px);
+
+    aspect-ratio: 210 / 297;
+
+    background: #fffaf0;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.20);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+}
+
+
+.message-emoji {
+
+    font-size: clamp(55px, 10vw, 100px);
+
+    margin-bottom: 20px;
+
+}
+
+
+.message-title {
+
+    font-size: clamp(30px, 5vw, 50px);
+
+    font-weight: bold;
+
+    color: #6c8f4e;
+
+    margin-bottom: 20px;
+
+}
+
+
+.message-text {
+
+    font-size: clamp(20px, 3vw, 30px);
+
+    line-height: 1.5;
+
+    max-width: 600px;
+
+}
+
+
+.retry-button {
+
+    margin-top: 35px;
+
+    padding: 16px 35px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #d69a45;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 0 #a96d2c;
+
+}
+
+
+.retry-button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+.retry-button:active {
+
+    transform: translateY(3px);
+
+    box-shadow: 0 2px 0 #a96d2c;
+
+}
+
+
+/* =====================================================
+   FINISH PAGE
+===================================================== */
+
+.finish-page {
+
+    width: min(90vw, 794px);
+
+    aspect-ratio: 210 / 297;
+
+    background: #fffaf0;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,0.20);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px;
+
+}
+
+
+.finish-emoji {
+
+    font-size: clamp(45px, 8vw, 80px);
+
+    margin-bottom: 25px;
+
+}
+
 
 .finish-title {
-    font-size: 42px;
+
+    font-size: clamp(30px, 5vw, 50px);
+
     font-weight: bold;
-    margin-bottom: 15px;
+
+    color: #6c8f4e;
+
+    margin-bottom: 20px;
+
 }
+
 
 .finish-text {
-    font-size: 25px;
+
+    font-size: clamp(20px, 3vw, 30px);
+
     line-height: 1.5;
-    max-width: 650px;
+
 }
 
-/* ================================
-   MOBILE
-================================ */
+
+.play-again {
+
+    margin-top: 35px;
+
+    padding: 16px 35px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #6c8f4e;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 0 #4d6c37;
+
+}
+
+
+/* =====================================================
+   SMALL SCREENS
+===================================================== */
 
 @media (max-width: 600px) {
 
-    .game-container {
-        padding: 25px 15px;
+    #game {
+
+        padding: 5px;
+
     }
 
-    h1 {
-        font-size: 30px;
+    .a4-page,
+    .title-page,
+    .message-page,
+    .finish-page {
+
+        width: 96vw;
+
     }
 
-    .question {
-        font-size: 24px;
+}
+
+
+/* =====================================================
+   LANDSCAPE PHONES / TABLETS
+===================================================== */
+
+@media (orientation: landscape) and (max-height: 600px) {
+
+    .a4-page,
+    .title-page,
+    .message-page,
+    .finish-page {
+
+        height: 94vh;
+
+        width: auto;
+
     }
 
-    .animal-image {
-        width: 240px;
-        height: 240px;
-    }
-
-    .revealed-animal {
-        width: 280px;
-        height: 280px;
-    }
-
-    .answer-button {
-        width: 90%;
-        min-width: unset;
-        font-size: 20px;
-    }
-
-    .reveal-title,
-    .encouragement,
-    .finish-title {
-        font-size: 32px;
-    }
-
-    .reveal-text,
-    .encouragement-text,
-    .finish-text {
-        font-size: 21px;
-    }
-
-    .progress-container {
-        width: 90%;
-    }
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<div class="game-container" id="game"></div>
+
+<div id="game"></div>
 
 
 <script>
 
 /* ==========================================================
-   25 ANIMALS
+   SAFARI ANIMALS
 
-   Each animal needs:
-   1. silhouette image
-   2. revealed image
-   3. two choices
-   4. correct answer
+   IMPORTANT:
+
+   Change the filenames below if your actual PNG filenames
+   are different.
+
+   question = Canva page containing silhouette + choices
+
+   reveal = Canva page showing the revealed animal
+
+   answer1 and answer2 = text shown on the Canva page
+
+   correct = the correct answer
 ========================================================== */
+
 
 const animals = [
 
     {
         name: "Lion",
-        silhouette: "pages/elephant-silhouette.png",
-        reveal: "pages/elephant.png",
-        choices: ["Giraffe", "Elephant"],
-        correct: "Elephant"
+
+        question:
+            "pages/lion-question.png",
+
+        reveal:
+            "pages/lion-reveal.png",
+
+        answer1: "Lion",
+
+        answer2: "Elephant",
+
+        correct: "Lion"
     },
+
 
     {
         name: "Elephant",
-        silhouette: "pages/elephant-silhouette.png",
-        reveal: "pages/elephant.png",
-        choices: ["Giraffe", "Elephant"],
+
+        question:
+            "pages/elephant-question.png",
+
+        reveal:
+            "pages/elephant-reveal.png",
+
+        answer1: "Giraffe",
+
+        answer2: "Elephant",
+
         correct: "Elephant"
     },
 
+
     {
         name: "Giraffe",
-        silhouette: "pages/giraffe-silhouette.png",
-        reveal: "pages/giraffe.png",
-        choices: ["Giraffe", "Zebra"],
+
+        question:
+            "pages/giraffe-question.png",
+
+        reveal:
+            "pages/giraffe-reveal.png",
+
+        answer1: "Giraffe",
+
+        answer2: "Zebra",
+
         correct: "Giraffe"
     },
 
+
     {
         name: "Zebra",
-        silhouette: "pages/zebra-silhouette.png",
-        reveal: "pages/zebra.png",
-        choices: ["Zebra", "Tiger"],
+
+        question:
+            "pages/zebra-question.png",
+
+        reveal:
+            "pages/zebra-reveal.png",
+
+        answer1: "Zebra",
+
+        answer2: "Tiger",
+
         correct: "Zebra"
     },
 
+
     {
         name: "Tiger",
-        silhouette: "pages/tiger-silhouette.png",
-        reveal: "pages/tiger.png",
-        choices: ["Tiger", "Monkey"],
+
+        question:
+            "pages/tiger-question.png",
+
+        reveal:
+            "pages/tiger-reveal.png",
+
+        answer1: "Tiger",
+
+        answer2: "Monkey",
+
         correct: "Tiger"
     },
 
+
     {
         name: "Monkey",
-        silhouette: "pages/monkey-silhouette.png",
-        reveal: "pages/monkey.png",
-        choices: ["Monkey", "Gorilla"],
+
+        question:
+            "pages/monkey-question.png",
+
+        reveal:
+            "pages/monkey-reveal.png",
+
+        answer1: "Monkey",
+
+        answer2: "Gorilla",
+
         correct: "Monkey"
     },
 
+
     {
         name: "Gorilla",
-        silhouette: "pages/gorilla-silhouette.png",
-        reveal: "pages/gorilla.png",
-        choices: ["Gorilla", "Hippopotamus"],
+
+        question:
+            "pages/gorilla-question.png",
+
+        reveal:
+            "pages/gorilla-reveal.png",
+
+        answer1: "Gorilla",
+
+        answer2: "Hippopotamus",
+
         correct: "Gorilla"
     },
 
+
     {
         name: "Hippopotamus",
-        silhouette: "pages/hippo-silhouette.png",
-        reveal: "pages/hippo.png",
-        choices: ["Rhinoceros", "Hippopotamus"],
+
+        question:
+            "pages/hippo-question.png",
+
+        reveal:
+            "pages/hippo-reveal.png",
+
+        answer1: "Rhinoceros",
+
+        answer2: "Hippopotamus",
+
         correct: "Hippopotamus"
     },
 
+
     {
         name: "Rhinoceros",
-        silhouette: "pages/rhino-silhouette.png",
-        reveal: "pages/rhino.png",
-        choices: ["Rhinoceros", "Giraffe"],
+
+        question:
+            "pages/rhino-question.png",
+
+        reveal:
+            "pages/rhino-reveal.png",
+
+        answer1: "Rhinoceros",
+
+        answer2: "Giraffe",
+
         correct: "Rhinoceros"
     },
 
+
     {
         name: "Cheetah",
-        silhouette: "pages/cheetah-silhouette.png",
-        reveal: "pages/cheetah.png",
-        choices: ["Cheetah", "Leopard"],
+
+        question:
+            "pages/cheetah-question.png",
+
+        reveal:
+            "pages/cheetah-reveal.png",
+
+        answer1: "Cheetah",
+
+        answer2: "Leopard",
+
         correct: "Cheetah"
     },
 
+
     {
         name: "Leopard",
-        silhouette: "pages/leopard-silhouette.png",
-        reveal: "pages/leopard.png",
-        choices: ["Leopard", "Cheetah"],
+
+        question:
+            "pages/leopard-question.png",
+
+        reveal:
+            "pages/leopard-reveal.png",
+
+        answer1: "Leopard",
+
+        answer2: "Cheetah",
+
         correct: "Leopard"
     },
 
+
     {
         name: "Hyena",
-        silhouette: "pages/hyena-silhouette.png",
-        reveal: "pages/hyena.png",
-        choices: ["Hyena", "Wolf"],
+
+        question:
+            "pages/hyena-question.png",
+
+        reveal:
+            "pages/hyena-reveal.png",
+
+        answer1: "Hyena",
+
+        answer2: "Wolf",
+
         correct: "Hyena"
     },
 
+
     {
         name: "Meerkat",
-        silhouette: "pages/meerkat-silhouette.png",
-        reveal: "pages/meerkat.png",
-        choices: ["Meerkat", "Fox"],
+
+        question:
+            "pages/meerkat-question.png",
+
+        reveal:
+            "pages/meerkat-reveal.png",
+
+        answer1: "Meerkat",
+
+        answer2: "Fox",
+
         correct: "Meerkat"
     },
 
+
     {
         name: "Flamingo",
-        silhouette: "pages/flamingo-silhouette.png",
-        reveal: "pages/flamingo.png",
-        choices: ["Flamingo", "Ostrich"],
+
+        question:
+            "pages/flamingo-question.png",
+
+        reveal:
+            "pages/flamingo-reveal.png",
+
+        answer1: "Flamingo",
+
+        answer2: "Ostrich",
+
         correct: "Flamingo"
     },
 
+
     {
         name: "Ostrich",
-        silhouette: "pages/ostrich-silhouette.png",
-        reveal: "pages/ostrich.png",
-        choices: ["Ostrich", "Flamingo"],
+
+        question:
+            "pages/ostrich-question.png",
+
+        reveal:
+            "pages/ostrich-reveal.png",
+
+        answer1: "Ostrich",
+
+        answer2: "Flamingo",
+
         correct: "Ostrich"
     },
 
+
     {
         name: "Crocodile",
-        silhouette: "pages/crocodile-silhouette.png",
-        reveal: "pages/crocodile.png",
-        choices: ["Crocodile", "Alligator"],
+
+        question:
+            "pages/crocodile-question.png",
+
+        reveal:
+            "pages/crocodile-reveal.png",
+
+        answer1: "Crocodile",
+
+        answer2: "Alligator",
+
         correct: "Crocodile"
     },
 
+
     {
         name: "Snake",
-        silhouette: "pages/snake-silhouette.png",
-        reveal: "pages/snake.png",
-        choices: ["Snake", "Lizard"],
+
+        question:
+            "pages/snake-question.png",
+
+        reveal:
+            "pages/snake-reveal.png",
+
+        answer1: "Snake",
+
+        answer2: "Lizard",
+
         correct: "Snake"
     },
 
+
     {
         name: "Tortoise",
-        silhouette: "pages/tortoise-silhouette.png",
-        reveal: "pages/tortoise.png",
-        choices: ["Tortoise", "Turtle"],
+
+        question:
+            "pages/tortoise-question.png",
+
+        reveal:
+            "pages/tortoise-reveal.png",
+
+        answer1: "Tortoise",
+
+        answer2: "Turtle",
+
         correct: "Tortoise"
     },
 
+
     {
         name: "Parrot",
-        silhouette: "pages/parrot-silhouette.png",
-        reveal: "pages/parrot.png",
-        choices: ["Parrot", "Toucan"],
+
+        question:
+            "pages/parrot-question.png",
+
+        reveal:
+            "pages/parrot-reveal.png",
+
+        answer1: "Parrot",
+
+        answer2: "Toucan",
+
         correct: "Parrot"
     },
 
+
     {
         name: "Toucan",
-        silhouette: "pages/toucan-silhouette.png",
-        reveal: "pages/toucan.png",
-        choices: ["Toucan", "Parrot"],
+
+        question:
+            "pages/toucan-question.png",
+
+        reveal:
+            "pages/toucan-reveal.png",
+
+        answer1: "Toucan",
+
+        answer2: "Parrot",
+
         correct: "Toucan"
     },
 
+
     {
         name: "Panda",
-        silhouette: "pages/panda-silhouette.png",
-        reveal: "pages/panda.png",
-        choices: ["Panda", "Koala"],
+
+        question:
+            "pages/panda-question.png",
+
+        reveal:
+            "pages/panda-reveal.png",
+
+        answer1: "Panda",
+
+        answer2: "Koala",
+
         correct: "Panda"
     },
 
+
     {
         name: "Koala",
-        silhouette: "pages/koala-silhouette.png",
-        reveal: "pages/koala.png",
-        choices: ["Koala", "Panda"],
+
+        question:
+            "pages/koala-question.png",
+
+        reveal:
+            "pages/koala-reveal.png",
+
+        answer1: "Koala",
+
+        answer2: "Panda",
+
         correct: "Koala"
     },
 
+
     {
         name: "Kangaroo",
-        silhouette: "pages/kangaroo-silhouette.png",
-        reveal: "pages/kangaroo.png",
-        choices: ["Kangaroo", "Deer"],
+
+        question:
+            "pages/kangaroo-question.png",
+
+        reveal:
+            "pages/kangaroo-reveal.png",
+
+        answer1: "Kangaroo",
+
+        answer2: "Deer",
+
         correct: "Kangaroo"
     },
 
+
     {
         name: "Penguin",
-        silhouette: "pages/penguin-silhouette.png",
-        reveal: "pages/penguin.png",
-        choices: ["Penguin", "Seal"],
+
+        question:
+            "pages/penguin-question.png",
+
+        reveal:
+            "pages/penguin-reveal.png",
+
+        answer1: "Penguin",
+
+        answer2: "Seal",
+
         correct: "Penguin"
     },
 
+
     {
         name: "Polar Bear",
-        silhouette: "pages/polar-bear-silhouette.png",
-        reveal: "pages/polar-bear.png",
-        choices: ["Polar Bear", "Panda"],
+
+        question:
+            "pages/polar-bear-question.png",
+
+        reveal:
+            "pages/polar-bear-reveal.png",
+
+        answer1: "Polar Bear",
+
+        answer2: "Panda",
+
         correct: "Polar Bear"
     }
 
@@ -530,14 +990,71 @@ const animals = [
 
 
 /* ==========================================================
-   GAME VARIABLES
+   CURRENT ANIMAL
 ========================================================== */
 
 let currentAnimal = 0;
 
 
 /* ==========================================================
-   SHOW QUESTION
+   SHOW TITLE PAGE
+========================================================== */
+
+function showTitlePage() {
+
+    const game = document.getElementById("game");
+
+
+    game.innerHTML = `
+
+        <div class="title-page">
+
+            <div class="title-emoji">
+
+                🦁 🐘 🦒
+
+            </div>
+
+
+            <div class="title-heading">
+
+                Safari Animal Adventure
+
+            </div>
+
+
+            <div class="title-subtitle">
+
+                Can you identify all 25 amazing animals?
+
+                <br>
+
+                Look closely at each silhouette and choose the correct answer!
+
+            </div>
+
+
+            <button
+
+                class="start-button"
+
+                onclick="showQuestion(0)"
+
+            >
+
+                Start Adventure
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ==========================================================
+   SHOW QUESTION PAGE
 ========================================================== */
 
 function showQuestion(index) {
@@ -548,58 +1065,76 @@ function showQuestion(index) {
 
     const game = document.getElementById("game");
 
-    const progress = ((index + 1) / animals.length) * 100;
+
+    /*
+       ------------------------------------------------------
+       IMPORTANT:
+
+       The coordinates below control where the invisible
+       clickable buttons are placed.
+
+       They are percentages of the A4 page.
+
+       You will probably need to adjust these TWO buttons
+       to match the location of the answer choices in
+       your Canva design.
+       ------------------------------------------------------
+    */
+
 
     game.innerHTML = `
 
-        <h1>🦁 Safari Animal Adventure 🐘</h1>
+        <div class="a4-page">
 
-        <div class="subtitle">
-            Can you identify the animal?
-        </div>
+            <img
+                src="${animal.question}"
+                alt="Animal identification question"
+            >
 
-        <div class="question-number">
-            Animal ${index + 1} of ${animals.length}
-        </div>
 
-        <div class="question">
-            Which animal is hiding in the silhouette?
-        </div>
-
-        <img
-            src="${animal.silhouette}"
-            class="animal-image"
-            alt="Animal silhouette"
-        >
-
-        <div class="answers">
+            <!-- ANSWER 1 -->
 
             <button
-                class="answer-button"
-                onclick="checkAnswer('${animal.choices[0]}')">
-                ${animal.choices[0]}
-            </button>
+
+                class="answer-area"
+
+                onclick="checkAnswer('${animal.answer1}')"
+
+                aria-label="${animal.answer1}"
+
+                style="
+                    left: 10%;
+                    top: 73%;
+                    width: 80%;
+                    height: 8%;
+                "
+
+            ></button>
+
+
+            <!-- ANSWER 2 -->
 
             <button
-                class="answer-button"
-                onclick="checkAnswer('${animal.choices[1]}')">
-                ${animal.choices[1]}
-            </button>
 
-        </div>
+                class="answer-area"
 
-        <div class="progress-container">
-            <div
-                class="progress-bar"
-                style="width: ${progress}%">
-            </div>
-        </div>
+                onclick="checkAnswer('${animal.answer2}')"
 
-        <div class="progress-text">
-            ${index + 1} of ${animals.length} animals
+                aria-label="${animal.answer2}"
+
+                style="
+                    left: 10%;
+                    top: 82%;
+                    width: 80%;
+                    height: 8%;
+                "
+
+            ></button>
+
         </div>
 
     `;
+
 }
 
 
@@ -611,11 +1146,14 @@ function checkAnswer(answer) {
 
     const animal = animals[currentAnimal];
 
+
     if (answer === animal.correct) {
 
         showReveal();
 
-    } else {
+    }
+
+    else {
 
         showEncouragement();
 
@@ -625,7 +1163,7 @@ function checkAnswer(answer) {
 
 
 /* ==========================================================
-   SHOW CORRECT ANSWER / REVEAL
+   SHOW REVEAL PAGE
 ========================================================== */
 
 function showReveal() {
@@ -634,26 +1172,56 @@ function showReveal() {
 
     const game = document.getElementById("game");
 
-    let nextButton;
+
+    let nextAction = "";
+
 
     if (currentAnimal < animals.length - 1) {
 
-        nextButton = `
+        nextAction = `
+
             <button
-                class="continue-button"
-                onclick="showQuestion(${currentAnimal + 1})">
-                Next Animal ➜
-            </button>
+
+                class="answer-area"
+
+                onclick="showQuestion(${currentAnimal + 1})"
+
+                aria-label="Next animal"
+
+                style="
+                    left: 20%;
+                    top: 88%;
+                    width: 60%;
+                    height: 7%;
+                "
+
+            ></button>
+
         `;
 
-    } else {
+    }
 
-        nextButton = `
+    else {
+
+        nextAction = `
+
             <button
-                class="continue-button"
-                onclick="finishGame()">
-                Finish Adventure 🎉
-            </button>
+
+                class="answer-area"
+
+                onclick="finishGame()"
+
+                aria-label="Finish adventure"
+
+                style="
+                    left: 20%;
+                    top: 88%;
+                    width: 60%;
+                    height: 7%;
+                "
+
+            ></button>
+
         `;
 
     }
@@ -661,114 +1229,157 @@ function showReveal() {
 
     game.innerHTML = `
 
-        <div class="reveal-title">
-            🎉 Great Job! 🎉
+        <div class="a4-page">
+
+            <img
+
+                src="${animal.reveal}"
+
+                alt="${animal.name} revealed"
+
+            >
+
+            ${nextAction}
+
         </div>
-
-        <div class="reveal-text">
-            You found the ${animal.name}!
-        </div>
-
-        <img
-            src="${animal.reveal}"
-            class="revealed-animal"
-            alt="${animal.name}"
-        >
-
-        ${nextButton}
 
     `;
+
 }
 
 
 /* ==========================================================
-   WRONG ANSWER / ENCOURAGEMENT
+   WRONG ANSWER PAGE
 ========================================================== */
 
 function showEncouragement() {
 
     const game = document.getElementById("game");
 
+
     game.innerHTML = `
 
-        <div class="encouragement-emoji">
-            🌟
+        <div class="message-page">
+
+            <div class="message-emoji">
+                🌟
+            </div>
+
+
+            <div class="message-title">
+                Almost There!
+            </div>
+
+
+            <div class="message-text">
+
+                Great try! 💛
+
+                <br><br>
+
+                Take another look at the silhouette.
+
+                <br>
+
+                You can do it!
+
+            </div>
+
+
+            <button
+
+                class="retry-button"
+
+                onclick="showQuestion(${currentAnimal})"
+
+            >
+
+                ← Try Again
+
+            </button>
+
         </div>
-
-        <div class="encouragement">
-            Almost there!
-        </div>
-
-        <div class="encouragement-text">
-
-            Great try! 💛
-            <br>
-            Take another look at the silhouette.
-            <br>
-            You can do it!
-
-        </div>
-
-        <button
-            class="back-button"
-            onclick="showQuestion(${currentAnimal})">
-            ← Try Again
-        </button>
 
     `;
+
 }
 
 
 /* ==========================================================
-   FINISH GAME
+   FINISH PAGE
 ========================================================== */
 
 function finishGame() {
 
     const game = document.getElementById("game");
 
+
     game.innerHTML = `
 
-        <div class="finish-animals">
-            🦁 🐘 🦒 🦓 🐒
+        <div class="finish-page">
+
+            <div class="finish-emoji">
+
+                🦁 🐘 🦒 🦓
+
+            </div>
+
+
+            <div class="finish-title">
+
+                🎉 Safari Adventure Complete! 🎉
+
+            </div>
+
+
+            <div class="finish-text">
+
+                Amazing work! 🌟
+
+                <br><br>
+
+                You identified all 25 animals!
+
+                <br><br>
+
+                You are officially a
+
+                <strong>
+                    Safari Animal Expert!
+                </strong>
+
+                🏆
+
+            </div>
+
+
+            <button
+
+                class="play-again"
+
+                onclick="showTitlePage()"
+
+            >
+
+                🔄 Play Again
+
+            </button>
+
         </div>
-
-        <div class="finish-title">
-            🎉 Safari Adventure Complete! 🎉
-        </div>
-
-        <div class="finish-text">
-
-            Amazing work! 🌟
-
-            <br><br>
-
-            You identified all 25 animals!
-
-            <br><br>
-
-            You are officially a
-            <strong>Safari Animal Expert!</strong> 🏆
-
-        </div>
-
-        <button
-            class="back-button"
-            onclick="showQuestion(0)">
-            🔄 Play Again
-        </button>
 
     `;
+
 }
 
 
 /* ==========================================================
-   START GAME
+   START WITH TITLE PAGE
 ========================================================== */
 
-showQuestion(0);
+showTitlePage();
 
 </script>
 
 </body>
+
 </html>
