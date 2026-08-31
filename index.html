@@ -1,55 +1,774 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<title>Safari Animal Adventure</title>
 
-    <title>Safari Animal Adventure</title>
+<style>
 
-    <link rel="stylesheet" href="style.css">
+/* ================================
+   GENERAL
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background: #f7efd8;
+    color: #3e321d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================================
+   GAME CONTAINER
+================================ */
+
+.game-container {
+    width: 100%;
+    max-width: 900px;
+    min-height: 100vh;
+    padding: 35px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ================================
+   TITLE
+================================ */
+
+h1 {
+    font-size: 42px;
+    margin: 0 0 8px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.question-number {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+/* ================================
+   QUESTION
+================================ */
+
+.question {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}
+
+/* ================================
+   ANIMAL SILHOUETTE
+================================ */
+
+.animal-image {
+    width: 320px;
+    height: 320px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+/* ================================
+   ANSWER BUTTONS
+================================ */
+
+.answers {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.answer-button {
+    min-width: 230px;
+    padding: 18px 25px;
+    border: none;
+    border-radius: 18px;
+    background: #d89b4a;
+    color: white;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #a96f2d;
+    transition: all 0.15s ease;
+}
+
+.answer-button:hover {
+    transform: translateY(-3px);
+}
+
+.answer-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #a96f2d;
+}
+
+/* ================================
+   PROGRESS BAR
+================================ */
+
+.progress-container {
+    width: 80%;
+    max-width: 600px;
+    height: 15px;
+    background: #ded3b8;
+    border-radius: 20px;
+    margin: 25px auto 8px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #789b57;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.progress-text {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ================================
+   REVEAL PAGE
+================================ */
+
+.reveal-title {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.reveal-text {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.revealed-animal {
+    width: 360px;
+    height: 360px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+/* ================================
+   GENERAL BUTTONS
+================================ */
+
+.continue-button,
+.back-button {
+    border: none;
+    border-radius: 18px;
+    padding: 16px 35px;
+    font-family: inherit;
+    font-size: 21px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.15s ease;
+}
+
+.continue-button {
+    background: #719752;
+    color: white;
+    box-shadow: 0 5px 0 #4e7036;
+}
+
+.back-button {
+    background: #d89b4a;
+    color: white;
+    box-shadow: 0 5px 0 #a96f2d;
+}
+
+.continue-button:hover,
+.back-button:hover {
+    transform: translateY(-3px);
+}
+
+.continue-button:active,
+.back-button:active {
+    transform: translateY(3px);
+}
+
+/* ================================
+   ENCOURAGEMENT PAGE
+================================ */
+
+.encouragement-emoji {
+    font-size: 75px;
+    margin-bottom: 10px;
+}
+
+.encouragement {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.encouragement-text {
+    max-width: 650px;
+    font-size: 25px;
+    line-height: 1.5;
+}
+
+/* ================================
+   FINISH PAGE
+================================ */
+
+.finish-animals {
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+.finish-title {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.finish-text {
+    font-size: 25px;
+    line-height: 1.5;
+    max-width: 650px;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .game-container {
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .question {
+        font-size: 24px;
+    }
+
+    .animal-image {
+        width: 240px;
+        height: 240px;
+    }
+
+    .revealed-animal {
+        width: 280px;
+        height: 280px;
+    }
+
+    .answer-button {
+        width: 90%;
+        min-width: unset;
+        font-size: 20px;
+    }
+
+    .reveal-title,
+    .encouragement,
+    .finish-title {
+        font-size: 32px;
+    }
+
+    .reveal-text,
+    .encouragement-text,
+    .finish-text {
+        font-size: 21px;
+    }
+
+    .progress-container {
+        width: 90%;
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <div class="book">
+<div class="game-container" id="game"></div>
+
+
+<script>
+
+/* ==========================================================
+   25 ANIMALS
+
+   Each animal needs:
+   1. silhouette image
+   2. revealed image
+   3. two choices
+   4. correct answer
+========================================================== */
+
+const animals = [
+
+    {
+        name: "Lion",
+        silhouette: "pages/lion-silhouette.png",
+        reveal: "pages/lion.png",
+        choices: ["Lion", "Elephant"],
+        correct: "Lion"
+    },
+
+    {
+        name: "Elephant",
+        silhouette: "pages/elephant-silhouette.png",
+        reveal: "pages/elephant.png",
+        choices: ["Giraffe", "Elephant"],
+        correct: "Elephant"
+    },
+
+    {
+        name: "Giraffe",
+        silhouette: "pages/giraffe-silhouette.png",
+        reveal: "pages/giraffe.png",
+        choices: ["Giraffe", "Zebra"],
+        correct: "Giraffe"
+    },
+
+    {
+        name: "Zebra",
+        silhouette: "pages/zebra-silhouette.png",
+        reveal: "pages/zebra.png",
+        choices: ["Zebra", "Tiger"],
+        correct: "Zebra"
+    },
+
+    {
+        name: "Tiger",
+        silhouette: "pages/tiger-silhouette.png",
+        reveal: "pages/tiger.png",
+        choices: ["Tiger", "Monkey"],
+        correct: "Tiger"
+    },
+
+    {
+        name: "Monkey",
+        silhouette: "pages/monkey-silhouette.png",
+        reveal: "pages/monkey.png",
+        choices: ["Monkey", "Gorilla"],
+        correct: "Monkey"
+    },
+
+    {
+        name: "Gorilla",
+        silhouette: "pages/gorilla-silhouette.png",
+        reveal: "pages/gorilla.png",
+        choices: ["Gorilla", "Hippopotamus"],
+        correct: "Gorilla"
+    },
+
+    {
+        name: "Hippopotamus",
+        silhouette: "pages/hippo-silhouette.png",
+        reveal: "pages/hippo.png",
+        choices: ["Rhinoceros", "Hippopotamus"],
+        correct: "Hippopotamus"
+    },
+
+    {
+        name: "Rhinoceros",
+        silhouette: "pages/rhino-silhouette.png",
+        reveal: "pages/rhino.png",
+        choices: ["Rhinoceros", "Giraffe"],
+        correct: "Rhinoceros"
+    },
+
+    {
+        name: "Cheetah",
+        silhouette: "pages/cheetah-silhouette.png",
+        reveal: "pages/cheetah.png",
+        choices: ["Cheetah", "Leopard"],
+        correct: "Cheetah"
+    },
+
+    {
+        name: "Leopard",
+        silhouette: "pages/leopard-silhouette.png",
+        reveal: "pages/leopard.png",
+        choices: ["Leopard", "Cheetah"],
+        correct: "Leopard"
+    },
+
+    {
+        name: "Hyena",
+        silhouette: "pages/hyena-silhouette.png",
+        reveal: "pages/hyena.png",
+        choices: ["Hyena", "Wolf"],
+        correct: "Hyena"
+    },
+
+    {
+        name: "Meerkat",
+        silhouette: "pages/meerkat-silhouette.png",
+        reveal: "pages/meerkat.png",
+        choices: ["Meerkat", "Fox"],
+        correct: "Meerkat"
+    },
+
+    {
+        name: "Flamingo",
+        silhouette: "pages/flamingo-silhouette.png",
+        reveal: "pages/flamingo.png",
+        choices: ["Flamingo", "Ostrich"],
+        correct: "Flamingo"
+    },
+
+    {
+        name: "Ostrich",
+        silhouette: "pages/ostrich-silhouette.png",
+        reveal: "pages/ostrich.png",
+        choices: ["Ostrich", "Flamingo"],
+        correct: "Ostrich"
+    },
+
+    {
+        name: "Crocodile",
+        silhouette: "pages/crocodile-silhouette.png",
+        reveal: "pages/crocodile.png",
+        choices: ["Crocodile", "Alligator"],
+        correct: "Crocodile"
+    },
+
+    {
+        name: "Snake",
+        silhouette: "pages/snake-silhouette.png",
+        reveal: "pages/snake.png",
+        choices: ["Snake", "Lizard"],
+        correct: "Snake"
+    },
+
+    {
+        name: "Tortoise",
+        silhouette: "pages/tortoise-silhouette.png",
+        reveal: "pages/tortoise.png",
+        choices: ["Tortoise", "Turtle"],
+        correct: "Tortoise"
+    },
+
+    {
+        name: "Parrot",
+        silhouette: "pages/parrot-silhouette.png",
+        reveal: "pages/parrot.png",
+        choices: ["Parrot", "Toucan"],
+        correct: "Parrot"
+    },
+
+    {
+        name: "Toucan",
+        silhouette: "pages/toucan-silhouette.png",
+        reveal: "pages/toucan.png",
+        choices: ["Toucan", "Parrot"],
+        correct: "Toucan"
+    },
+
+    {
+        name: "Panda",
+        silhouette: "pages/panda-silhouette.png",
+        reveal: "pages/panda.png",
+        choices: ["Panda", "Koala"],
+        correct: "Panda"
+    },
+
+    {
+        name: "Koala",
+        silhouette: "pages/koala-silhouette.png",
+        reveal: "pages/koala.png",
+        choices: ["Koala", "Panda"],
+        correct: "Koala"
+    },
+
+    {
+        name: "Kangaroo",
+        silhouette: "pages/kangaroo-silhouette.png",
+        reveal: "pages/kangaroo.png",
+        choices: ["Kangaroo", "Deer"],
+        correct: "Kangaroo"
+    },
+
+    {
+        name: "Penguin",
+        silhouette: "pages/penguin-silhouette.png",
+        reveal: "pages/penguin.png",
+        choices: ["Penguin", "Seal"],
+        correct: "Penguin"
+    },
+
+    {
+        name: "Polar Bear",
+        silhouette: "pages/polar-bear-silhouette.png",
+        reveal: "pages/polar-bear.png",
+        choices: ["Polar Bear", "Panda"],
+        correct: "Polar Bear"
+    }
+
+];
+
+
+/* ==========================================================
+   GAME VARIABLES
+========================================================== */
+
+let currentAnimal = 0;
+
+
+/* ==========================================================
+   SHOW QUESTION
+========================================================== */
+
+function showQuestion(index) {
+
+    currentAnimal = index;
+
+    const animal = animals[index];
+
+    const game = document.getElementById("game");
+
+    const progress = ((index + 1) / animals.length) * 100;
+
+    game.innerHTML = `
+
+        <h1>🦁 Safari Animal Adventure 🐘</h1>
+
+        <div class="subtitle">
+            Can you identify the animal?
+        </div>
+
+        <div class="question-number">
+            Animal ${index + 1} of ${animals.length}
+        </div>
+
+        <div class="question">
+            Which animal is hiding in the silhouette?
+        </div>
 
         <img
-            id="pageImage"
-            src="pages/page1.png"
-            alt="Safari Animal Adventure"
+            src="${animal.silhouette}"
+            class="animal-image"
+            alt="Animal silhouette"
         >
 
-    </div>
+        <div class="answers">
 
-    <div class="navigation">
+            <button
+                class="answer-button"
+                onclick="checkAnswer('${animal.choices[0]}')">
+                ${animal.choices[0]}
+            </button>
+
+            <button
+                class="answer-button"
+                onclick="checkAnswer('${animal.choices[1]}')">
+                ${animal.choices[1]}
+            </button>
+
+        </div>
+
+        <div class="progress-container">
+            <div
+                class="progress-bar"
+                style="width: ${progress}%">
+            </div>
+        </div>
+
+        <div class="progress-text">
+            ${index + 1} of ${animals.length} animals
+        </div>
+
+    `;
+}
+
+
+/* ==========================================================
+   CHECK ANSWER
+========================================================== */
+
+function checkAnswer(answer) {
+
+    const animal = animals[currentAnimal];
+
+    if (answer === animal.correct) {
+
+        showReveal();
+
+    } else {
+
+        showEncouragement();
+
+    }
+
+}
+
+
+/* ==========================================================
+   SHOW CORRECT ANSWER / REVEAL
+========================================================== */
+
+function showReveal() {
+
+    const animal = animals[currentAnimal];
+
+    const game = document.getElementById("game");
+
+    let nextButton;
+
+    if (currentAnimal < animals.length - 1) {
+
+        nextButton = `
+            <button
+                class="continue-button"
+                onclick="showQuestion(${currentAnimal + 1})">
+                Next Animal ➜
+            </button>
+        `;
+
+    } else {
+
+        nextButton = `
+            <button
+                class="continue-button"
+                onclick="finishGame()">
+                Finish Adventure 🎉
+            </button>
+        `;
+
+    }
+
+
+    game.innerHTML = `
+
+        <div class="reveal-title">
+            🎉 Great Job! 🎉
+        </div>
+
+        <div class="reveal-text">
+            You found the ${animal.name}!
+        </div>
+
+        <img
+            src="${animal.reveal}"
+            class="revealed-animal"
+            alt="${animal.name}"
+        >
+
+        ${nextButton}
+
+    `;
+}
+
+
+/* ==========================================================
+   WRONG ANSWER / ENCOURAGEMENT
+========================================================== */
+
+function showEncouragement() {
+
+    const game = document.getElementById("game");
+
+    game.innerHTML = `
+
+        <div class="encouragement-emoji">
+            🌟
+        </div>
+
+        <div class="encouragement">
+            Almost there!
+        </div>
+
+        <div class="encouragement-text">
+
+            Great try! 💛
+            <br>
+            Take another look at the silhouette.
+            <br>
+            You can do it!
+
+        </div>
 
         <button
-            id="backButton"
-            onclick="previousPage()">
-
-            ← BACK
-
+            class="back-button"
+            onclick="showQuestion(${currentAnimal})">
+            ← Try Again
         </button>
 
-        <span id="pageNumber">
-            1 / 3
-        </span>
+    `;
+}
+
+
+/* ==========================================================
+   FINISH GAME
+========================================================== */
+
+function finishGame() {
+
+    const game = document.getElementById("game");
+
+    game.innerHTML = `
+
+        <div class="finish-animals">
+            🦁 🐘 🦒 🦓 🐒
+        </div>
+
+        <div class="finish-title">
+            🎉 Safari Adventure Complete! 🎉
+        </div>
+
+        <div class="finish-text">
+
+            Amazing work! 🌟
+
+            <br><br>
+
+            You identified all 25 animals!
+
+            <br><br>
+
+            You are officially a
+            <strong>Safari Animal Expert!</strong> 🏆
+
+        </div>
 
         <button
-            id="nextButton"
-            onclick="nextPage()">
-
-            NEXT →
-
+            class="back-button"
+            onclick="showQuestion(0)">
+            🔄 Play Again
         </button>
 
-    </div>
+    `;
+}
 
-    <script src="script.js"></script>
+
+/* ==========================================================
+   START GAME
+========================================================== */
+
+showQuestion(0);
+
+</script>
 
 </body>
-
 </html>
