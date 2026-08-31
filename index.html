@@ -8,8 +8,6 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Safari Animal Adventure</title>
-
     <style>
 
         * {
@@ -21,7 +19,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
+            min-height: 100%;
         }
 
         body {
@@ -35,9 +33,9 @@
         }
 
 
-        /* ==========================
-           A4 CANVA PAGE
-        ========================== */
+        /* =========================
+           A4 PAGE
+        ========================= */
 
         .page {
 
@@ -56,9 +54,9 @@
         }
 
 
-        /* ==========================
-           YOUR CANVA DESIGN
-        ========================== */
+        /* =========================
+           PNG
+        ========================= */
 
         .page img {
 
@@ -72,9 +70,9 @@
         }
 
 
-        /* ==========================
+        /* =========================
            START BUTTON
-        ========================== */
+        ========================= */
 
         .start-button {
 
@@ -104,14 +102,13 @@
 
             box-shadow:
                 0 5px 0 #a96d2c;
-
-            transition: 0.15s;
         }
 
 
         .start-button:hover {
 
-            transform: translateY(-3px);
+            transform: translateY(-2px);
+
         }
 
 
@@ -124,27 +121,24 @@
         }
 
 
-        /* ==========================
+        /* =========================
            MOBILE
-        ========================== */
+        ========================= */
 
         @media (max-width: 600px) {
 
             .page {
 
                 width: 96vw;
+
             }
 
-            .start-button {
-
-                border-radius: 14px;
-            }
         }
 
 
-        /* ==========================
+        /* =========================
            LANDSCAPE
-        ========================== */
+        ========================= */
 
         @media (orientation: landscape)
                and (max-height: 600px) {
@@ -154,7 +148,9 @@
                 height: 94vh;
 
                 width: auto;
+
             }
+
         }
 
     </style>
@@ -165,28 +161,57 @@
 <body>
 
 
+    <!-- =========================
+         TITLE PAGE
+    ========================= -->
+
     <div class="page">
 
-        <!-- YOUR COMPLETE CANVA DESIGN -->
+
+        <!-- YOUR CANVA TITLE PNG -->
 
         <img
             src="pages/title.png"
-            alt="Title Page"
+            alt=""
         >
 
 
-        <!-- CLICKABLE START BUTTON -->
+        <!-- START BUTTON -->
 
         <button
             class="start-button"
-            onclick="window.location.href='index.html';"
+            onclick="startAdventure()"
         >
 
             Start Your Adventure
 
         </button>
 
+
     </div>
+
+
+    <script>
+
+        function startAdventure() {
+
+            /*
+             * This is where your animal activity
+             * will start.
+             *
+             * For now, clicking the button simply
+             * displays a message.
+             *
+             * When we add your 25 animals, this
+             * function will change the screen to
+             * Animal #1.
+             */
+
+            alert("Your adventure is about to begin!");
+
+        }
+
+    </script>
 
 
 </body>
