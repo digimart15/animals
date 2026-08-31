@@ -1,1 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Safari Animal Adventure</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="book">
+
+        <img
+            id="pageImage"
+            src="pages/page1.png"
+            alt="Safari Animal Adventure"
+        >
+
+    </div>
+
+    <div class="navigation">
+
+        <button
+            id="backButton"
+            onclick="previousPage()">
+
+            ← BACK
+
+        </button>
+
+        <span id="pageNumber">
+            1 / 3
+        </span>
+
+        <button
+            id="nextButton"
+            onclick="nextPage()">
+
+            NEXT →
+
+        </button>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
